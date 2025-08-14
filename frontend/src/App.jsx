@@ -12,10 +12,13 @@ import MyTasks from './pages/User/MyTasks';
 import ViewTaskDetails from './pages/User/ViewTaskDetails';
 import PrivateRoutes from './routes/privateRoutes';
 import UserProvider, { UserContext } from './context/userContext';
+import { Toaster } from 'react-hot-toast';
+
 
 const App = () => {
   return (
     <UserProvider>
+      <div>
       <Router>
         <Routes>
           {/* Public Routes */}
@@ -41,6 +44,14 @@ const App = () => {
           <Route path="/" element={<Root />} />
         </Routes>
       </Router>
+      </div>
+      <Toaster 
+      toastOptions = {{
+        className:"",
+        style:{
+          fontSize:"13px"
+        },
+      }}/>
     </UserProvider>
   );
 };

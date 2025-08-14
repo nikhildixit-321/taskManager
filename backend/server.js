@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes')
 const taskRoutes = require('./routes/taskRoutes')
 const reportRoutes = require('./routes/reportRoutes')
 const app  = express();
+const Path = require('path');
+const path = require('path');
 
 // middleware to handle cors
 app.use(cors({
@@ -28,7 +30,8 @@ app.use("/api/users",userRoutes)
 app.use("/api/tasks",taskRoutes)
 app.use("/api/reports",reportRoutes)
 
-
+// serve server
+app.use("/uploads",express.static(path.join(__dirname,"uploads")))
 
 // start server 
 const PORT = process.env.PORT || 8000;

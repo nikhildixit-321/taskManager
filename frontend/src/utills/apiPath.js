@@ -7,11 +7,11 @@ export const API_PATHS = {
         GET_PROFILE:"/api/auth/profile"
     },
     USER:{
-   GET_ALL_USERS:"/api/users",
-   GET_USER_BY_ID:(userId)=> `/api/users/${userId}`,
-   CREATE_USER:"/api/users",
-   UPDATE_USER:(userId)=>`/api/users/${userId}`,
-   DELETE_USER:(userId)=>`/api/users/${userId}`
+       GET_ALL_USERS:"/api/users",
+       GET_USER_BY_ID:(userId)=> `/api/users/${userId}`,
+       CREATE_USER:"/api/users",
+       UPDATE_USER:(userId)=>`/api/users/${userId}`,
+       DELETE_USER:(userId)=>`/api/users/${userId}`
     },
     TASKS:{
       GET_DASHBOARD_DATA:"/api/tasks/dashboard-data",
@@ -29,6 +29,6 @@ export const API_PATHS = {
       EXPORT_USERS:"/api/reports/export/users"
     },
     IMAGE:{
-        UPLOAD_IMAGE:"api/auth/upload-image"
+     UPLOAD_IMAGE:"api/auth/upload-image"
     },
 }
