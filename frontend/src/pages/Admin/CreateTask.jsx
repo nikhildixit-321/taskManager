@@ -156,12 +156,12 @@ const CreateTask = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="form-card col-span-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-medium">
+              <h2 className="text-xl font-medium text-gray-900 dark:text-white">
                 {taskId ? 'Update Task' : 'Create Task'}
               </h2>
               {taskId && (
                 <button
-                  className="flex items-center gap-1.5 text-[13px] font-medium text-rose-500 bg-rose-50 rounded px-2 py-1 border border-rose-100 hover:border-rose-300"
+                  className="flex items-center gap-1.5 text-[13px] font-medium text-rose-500 bg-rose-50 dark:bg-rose-900/30 dark:text-rose-400 rounded px-2 py-1 border border-rose-100 dark:border-rose-800 hover:border-rose-300 dark:hover:border-rose-700"
                   onClick={() => setOpenDeleteAlert(true)}
                 >
                   <LuTrash2 className="text-base" /> Delete
@@ -170,7 +170,7 @@ const CreateTask = () => {
             </div>
 
             <div className="mt-4">
-              <label className="text-xs font-medium text-slate-600">Task Title</label>
+              <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Task Title</label>
               <input
                 className="form-input"
                 placeholder="Create APP UI"
@@ -180,7 +180,7 @@ const CreateTask = () => {
             </div>
 
             <div className="mt-3">
-              <label className="text-xs font-medium text-slate-600">Description</label>
+              <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Description</label>
               <textarea
                 placeholder="Describe task"
                 rows={4}
@@ -192,7 +192,7 @@ const CreateTask = () => {
 
             <div className="grid grid-cols-12 gap-4 mt-4">
               <div className="col-span-6 md:col-span-4">
-                <label className="text-xs font-medium text-slate-600">Priority</label>
+                <label className="text-xs font-medium text-slate-600 dark:text-slate-400">Priority</label>
                 <SelectDropdown
                   options={PRIORITY_DATA}
                   value={taskData.priority}
