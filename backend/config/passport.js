@@ -11,13 +11,24 @@ passport.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
+                console.log('Google profile received:', JSON.stringify(profile, null, 2));
+                
+                // Check if profile has emails
+                if (!profile.emails || profile.emails.length === 0) {
+                    return done(new Error('No email found in Google profile'), null);
+                }
+
+                const email = profile.emails[0].value;
+                const name = profile.displayName || profile.name?.givenName || 'User';
+                const profileImageUrl = profile.photos && profile.photos.length > 0 ? profile.photos[0].value : null;
+
                 // Check if user already exists
-                let user = await User.findOne({ email: profile.emails[0].value });
+                let user = await User.findOne({ email: email });
 
                 if (user) {
                     // Update profile image if not set
-                    if (!user.profileImageUrl && profile.photos[0]) {
-                        user.profileImageUrl = profile.photos[0].value;
+                    if (!user.profileImageUrl && profileImageUrl) {
+                        user.profileImageUrl = profileImageUrl;
                         await user.save();
                     }
                     return done(null, user);
@@ -25,15 +36,16 @@ passport.use(
 
                 // Create new user
                 user = await User.create({
-                    name: profile.displayName,
-                    email: profile.emails[0].value,
-                    password: Math.random().toString(36).slice(-16), // Random password
-                    profileImageUrl: profile.photos[0]?.value || null,
+                    name: name,
+                    email: email,
+                    password: Math.random().toString(36).slice(-16),
+                    profileImageUrl: profileImageUrl,
                     role: "member"
                 });
 
                 done(null, user);
             } catch (error) {
+                console.error('Google OAuth error:', error);
                 done(error, null);
             }
         }

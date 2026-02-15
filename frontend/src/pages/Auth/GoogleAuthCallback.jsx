@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 import toast from 'react-hot-toast';
@@ -7,8 +7,12 @@ const GoogleAuthCallback = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { updateUser } = useContext(UserContext);
+  const hasProcessed = useRef(false);
 
   useEffect(() => {
+    if (hasProcessed.current) return;
+    hasProcessed.current = true;
+
     const token = searchParams.get('token');
     const userId = searchParams.get('userId');
     const name = searchParams.get('name');
@@ -19,8 +23,8 @@ const GoogleAuthCallback = () => {
     if (token && userId) {
       const userData = {
         _id: userId,
-        name: decodeURIComponent(name),
-        email: decodeURIComponent(email),
+        name: decodeURIComponent(name || ''),
+        email: decodeURIComponent(email || ''),
         role,
         profileImageUrl: profileImageUrl ? decodeURIComponent(profileImageUrl) : null,
         token
@@ -31,15 +35,15 @@ const GoogleAuthCallback = () => {
 
       // Redirect based on role
       if (role === 'admin') {
-        navigate('/admin/dashboard');
+        navigate('/admin/dashboard', { replace: true });
       } else {
-        navigate('/user/dashboard');
+        navigate('/user/dashboard', { replace: true });
       }
     } else {
       toast.error('Authentication failed');
-      navigate('/login');
+      navigate('/login', { replace: true });
     }
-  }, [searchParams, navigate, updateUser]);
+  }, []); // Empty dependency array - run only once
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from '../../utills/axiosInstance';
-import { API_PATHS } from '../../utills/apiPath';
+import { API_PATHS, BASE_URL } from '../../utills/apiPath';
 import { UserContext } from '../../context/userContext';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';
@@ -107,7 +107,7 @@ const Login = () => {
 
           <div>
             <a
-              href={`${API_PATHS.AUTH.GOOGLE_LOGIN}`}
+              href={`${BASE_URL}${API_PATHS.AUTH.GOOGLE_LOGIN}`}
               className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <FcGoogle size={20} />

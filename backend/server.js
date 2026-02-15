@@ -3,6 +3,7 @@ const express = require("express")
 const cors = require("cors")
 const http = require('http');
 const { Server } = require('socket.io');
+const session = require('express-session');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
@@ -38,7 +39,17 @@ app.use(cors({
 
 // middlewares
 app.use(express.json())
+app.use(session({
+    secret: process.env.JWT_SECRET || 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // Set to true in production with HTTPS
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+}));
 app.use(passport.initialize());
+app.use(passport.session());
 
 // connected to database (non-blocking - server will start even if DB fails)
 connectDB().catch(err => {
