@@ -68,9 +68,9 @@ const ManageTasks = () => {
       <div className="my-5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-xl md:text-xl font-medium">My Tasks</h2>
+            <h2 className="text-xl md:text-xl font-medium text-gray-900 dark:text-white">My Tasks</h2>
             <button
-              className="flex lg:hidden download-btn"
+              className="flex lg:hidden download-btn dark:bg-lime-900 dark:text-lime-100 dark:border-lime-700"
               onClick={handleDownloadReport}
             >
               <LuFileSpreadsheet className="text-lg" />
@@ -86,7 +86,7 @@ const ManageTasks = () => {
                 onTabChange={setFilterStatus}
               />
               <button
-                className="hidden lg:flex download-btn"
+                className="hidden lg:flex download-btn dark:bg-lime-900 dark:text-lime-100 dark:border-lime-700"
                 onClick={handleDownloadReport}
               >
                 <LuFileSpreadsheet className="text-lg" />
@@ -115,7 +115,7 @@ const ManageTasks = () => {
               />
             ))
           ) : (
-            <p className="col-span-3 text-center text-gray-500">
+            <p className="col-span-3 text-center text-gray-500 dark:text-gray-400">
               No tasks found.
             </p>
           )}

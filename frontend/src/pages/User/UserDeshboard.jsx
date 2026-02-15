@@ -67,10 +67,10 @@ const UserDeshboard = () => {
     <DashboardLayout activeMenu="Dashboard">
       {/* Greeting */}
       <div className="card my-5">
-        <h2 className="text-xl md:text-2xl">
+        <h2 className="text-xl md:text-2xl text-gray-900 dark:text-white">
           Good Morning! {user?.name || ""}
         </h2>
-        <p className="text-xs md:text-[13px] text-gray-400 mt-1.5">
+        <p className="text-xs md:text-[13px] text-gray-400 dark:text-gray-500 mt-1.5">
           {moment().format("dddd Do MMM YYYY")}
         </p>
 
@@ -110,12 +110,12 @@ const UserDeshboard = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
         <div className="card">
-          <h5 className="font-medium">Task Distribution</h5>
+          <h5 className="font-medium text-gray-900 dark:text-white">Task Distribution</h5>
           <CustomPieChart data={pieChartData} colors={COLORS} />
         </div>
 
         <div className="card">
-          <h5 className="font-medium">Task Priority Levels</h5>
+          <h5 className="font-medium text-gray-900 dark:text-white">Task Priority Levels</h5>
           <CustomBarChart data={barChartData} />
         </div>
       </div>
@@ -123,8 +123,8 @@ const UserDeshboard = () => {
       {/* Recent Tasks */}
       <div className="card mt-6">
         <div className="flex items-center justify-between">
-          <h5 className="text-lg">Recent Tasks</h5>
-          <button className="card-btn" onClick={onSeeMore}>
+          <h5 className="text-lg text-gray-900 dark:text-white">Recent Tasks</h5>
+          <button className="card-btn dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600" onClick={onSeeMore}>
             See All <LuArrowRight className="text-base" />
           </button>
         </div>
