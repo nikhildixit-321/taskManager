@@ -4,6 +4,7 @@ const cors = require("cors")
 const http = require('http');
 const { Server } = require('socket.io');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
@@ -43,8 +44,12 @@ app.use(session({
     secret: process.env.JWT_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URL,
+        ttl: 14 * 24 * 60 * 60 // 14 days
+    }),
     cookie: {
-        secure: false, // Set to true in production with HTTPS
+        secure: process.env.NODE_ENV === 'production', // true in production
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
 }));
