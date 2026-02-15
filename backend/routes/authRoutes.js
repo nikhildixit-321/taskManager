@@ -20,11 +20,21 @@ router.get('/google',
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
-        // Generate JWT token
-        const token = gernerateToken(req.user._id);
-        
-        // Redirect to frontend with token
-        res.redirect(`${process.env.CLIENT_URL}/auth/callback?token=${token}&userId=${req.user._id}&name=${encodeURIComponent(req.user.name)}&email=${encodeURIComponent(req.user.email)}&role=${req.user.role}&profileImageUrl=${encodeURIComponent(req.user.profileImageUrl || '')}`);
+        try {
+            if (!req.user) {
+                console.error('No user returned from Google OAuth');
+                return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+            }
+            
+            // Generate JWT token
+            const token = gernerateToken(req.user._id);
+            
+            // Redirect to frontend with token
+            res.redirect(`${process.env.CLIENT_URL}/auth/callback?token=${token}&userId=${req.user._id}&name=${encodeURIComponent(req.user.name)}&email=${encodeURIComponent(req.user.email)}&role=${req.user.role}&profileImageUrl=${encodeURIComponent(req.user.profileImageUrl || '')}`);
+        } catch (error) {
+            console.error('Callback error:', error);
+            res.redirect(`${process.env.CLIENT_URL}/login?error=server_error`);
+        }
     }
 );
 
