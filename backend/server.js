@@ -95,6 +95,20 @@ cron.schedule('0 * * * *', async () => {
     await processRecurringTasks(io);
 });
 
+// Root endpoint
+app.get('/', (req, res) => {
+    res.status(200).json({ 
+        message: 'Task Manager API is running',
+        version: '1.0.0',
+        endpoints: {
+            health: '/health',
+            auth: '/api/auth',
+            users: '/api/users',
+            tasks: '/api/tasks'
+        }
+    });
+});
+
 // Health check endpoint for Render
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
