@@ -13,9 +13,11 @@ router.get("/profile", protect, getUserProfile)
 router.put("/profile", protect, updateUserProfile);
 
 // Google OAuth routes
-router.get('/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+router.get('/google', (req, res, next) => {
+    console.log('Google OAuth initiated');
+    console.log('CLIENT_URL:', process.env.CLIENT_URL);
+    next();
+}, passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
