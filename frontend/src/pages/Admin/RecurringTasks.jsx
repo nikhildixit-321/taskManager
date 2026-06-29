@@ -132,18 +132,18 @@ const RecurringTasks = () => {
   return (
     <DashboardLayout activeMenu="Recurring Tasks">
       <div className="my-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between bg-gray-800 items-start sm:items-center mb-8 gap-4">
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Recurring Tasks</h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage and automate your routine workflows effortlessly.</p>
           </div>
-          <button
+          <button 
             onClick={() => {
               setEditingTask(null);
               resetForm();
               setShowModal(true);
             }}
-            className="flex items-center gap-2 bg-gradient-to-r from-[#1368EC] to-[#0a45a3] text-white px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 font-medium"
+            className="flex items-center gap-2 bg-gradient-to-r from-[#1368EC] to-[#0a45a3] text-black px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 font-medium"
           >
             <LuPlus className="w-5 h-5" /> Create Routine
           </button>

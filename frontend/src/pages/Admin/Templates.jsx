@@ -78,7 +78,7 @@ const Templates = () => {
   return (
     <DashboardLayout activeMenu="Templates">
       <div className="my-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between bg-neutral-700 items-start sm:items-center mb-8 gap-4">
           <div>
             <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Task Templates</h2>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Standardize your work with reusable task blueprints.</p>
