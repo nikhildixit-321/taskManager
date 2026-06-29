@@ -77,9 +77,7 @@ const loginUser = async (req,res)=>{
     res.status(500).json({message:"server error",error: error.message})
    }
 }
-// @desc Register a new user
-// @route POST /api/auth/profile
-//  @access Private (Requires JWT)
+
 const getUserProfile = async (req,res)=>{
  try {
     const user = await User.findById(req.user._id).select("-password")
@@ -91,9 +89,7 @@ const getUserProfile = async (req,res)=>{
     res.status(500).json({message:"server error",error: error.message})
    }
 }
-// @desc Register a new user
-// @route POST /api/auth/proflie
-//  @access private (Requires JWT)
+
 const updateUserProfile = async (req,res)=>{
  try {
     const user = await User.findById(req.user.id)

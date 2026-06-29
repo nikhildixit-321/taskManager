@@ -2,9 +2,7 @@ const Comment = require("../models/Comment");
 const Task = require("../models/Task");
 const { createNotification } = require("../utils/notificationHelper");
 
-// @desc Get all comments for a task
-// @route GET /api/comments/task/:taskId
-// @access Private
+
 const getTaskComments = async (req, res) => {
     try {
         const comments = await Comment.find({ task: req.params.taskId })
@@ -17,9 +15,7 @@ const getTaskComments = async (req, res) => {
     }
 };
 
-// @desc Add a comment to a task
-// @route POST /api/comments/task/:taskId
-// @access Private
+
 const addComment = async (req, res) => {
     try {
         const { text, attachments, mentions, parentComment } = req.body;
@@ -81,9 +77,7 @@ const addComment = async (req, res) => {
     }
 };
 
-// @desc Update a comment
-// @route PUT /api/comments/:commentId
-// @access Private
+
 const updateComment = async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.commentId);
@@ -110,9 +104,7 @@ const updateComment = async (req, res) => {
     }
 };
 
-// @desc Delete a comment
-// @route DELETE /api/comments/:commentId
-// @access Private
+
 const deleteComment = async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.commentId);
