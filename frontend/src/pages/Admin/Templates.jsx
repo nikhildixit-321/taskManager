@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import axiosInstance from '../../utills/axiosInstance';
 import { API_PATHS } from '../../utills/apiPath';
-import { LuPlus, LuPencil, LuTrash2, LuCopy, LuLayoutTemplate, LuCheckSquare, LuGlobe } from 'react-icons/lu';
+import { LuPlus, LuPencil, LuTrash2, LuCopy, LuLayoutTemplate, LuListTodo, LuGlobe } from 'react-icons/lu';
 import toast from 'react-hot-toast';
 import Modal from '../../components/layouts/Modal';
 
@@ -166,7 +166,7 @@ const Templates = () => {
                   
                   <div className="pt-4 border-t border-gray-100 dark:border-gray-700/60">
                     <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 font-medium">
-                      <LuCheckSquare className="mr-1.5 w-4 h-4 text-gray-400 dark:text-gray-500" />
+                      <LuListTodo className="mr-1.5 w-4 h-4 text-gray-400 dark:text-gray-500" />
                       <span>{template.todoChecklist?.length || 0} checklist item{(template.todoChecklist?.length !== 1) ? 's' : ''}</span>
                     </div>
                   </div>
