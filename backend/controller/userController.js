@@ -4,9 +4,8 @@ const bcrypt = require('bcryptjs')
 
 
 
-// @desc get all user (admin only)
-// @route get /api/users/
-// @access private(admin)
+
+
 const getUsers = async (req,res)=>{
     try {
         const users  = await User.find({role:'member'}).select('-password')
@@ -29,9 +28,7 @@ const getUsers = async (req,res)=>{
         res.status(500).json({message:"server error",error:error.message})
     }
 };
-// @desc get all user (admin only)
-// @route get /api/users/:id
-// @access private
+
 const getUserById =async (req,res)=>{
    try {
     const user = await User.findById(req.params.id).select("-password");
@@ -40,15 +37,7 @@ const getUserById =async (req,res)=>{
    } catch (error) {
     res.status(500).json({message:"server error",error:error.message})
    }
-}
-// @desc get all user (admin only)
-// @route get /api/users/:id
-// @access private(admin)
-
-
-// @desc delete user (admin only)
-// @route DELETE /api/users/:id
-// @access private(admin)
+  }
 const deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

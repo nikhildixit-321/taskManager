@@ -1,8 +1,5 @@
 const RecurringTask = require("../models/RecurringTask");
 
-// @desc Get all recurring tasks
-// @route GET /api/recurring-tasks
-// @access Private (Admin)
 const getRecurringTasks = async (req, res) => {
     try {
         const recurringTasks = await RecurringTask.find()
@@ -16,9 +13,7 @@ const getRecurringTasks = async (req, res) => {
     }
 };
 
-// @desc Create a recurring task
-// @route POST /api/recurring-tasks
-// @access Private (Admin)
+
 const createRecurringTask = async (req, res) => {
     try {
         const {
@@ -68,9 +63,7 @@ const createRecurringTask = async (req, res) => {
     }
 };
 
-// @desc Update a recurring task
-// @route PUT /api/recurring-tasks/:id
-// @access Private (Admin)
+
 const updateRecurringTask = async (req, res) => {
     try {
         const recurringTask = await RecurringTask.findById(req.params.id);
@@ -110,9 +103,7 @@ const updateRecurringTask = async (req, res) => {
     }
 };
 
-// @desc Delete a recurring task
-// @route DELETE /api/recurring-tasks/:id
-// @access Private (Admin)
+
 const deleteRecurringTask = async (req, res) => {
     try {
         const recurringTask = await RecurringTask.findById(req.params.id);
@@ -128,9 +119,7 @@ const deleteRecurringTask = async (req, res) => {
     }
 };
 
-// @desc Toggle recurring task active status
-// @route PATCH /api/recurring-tasks/:id/toggle
-// @access Private (Admin)
+
 const toggleRecurringTask = async (req, res) => {
     try {
         const recurringTask = await RecurringTask.findById(req.params.id);

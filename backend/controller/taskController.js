@@ -1,9 +1,7 @@
 const Task = require('../models/Task');
 const { create } = require('../models/User');
 
-// @desc get all tasks (admin: all , user:only assigned task)
-// @route get /api/tasks
-// @access private
+
 const getTasks = async (req,res)=>{
     try {
         const {status} =req.query;
@@ -68,9 +66,7 @@ const getTasks = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 
 const getTaskById = async (req,res)=>{
      try {
@@ -85,9 +81,7 @@ const getTaskById = async (req,res)=>{
     }
 }
 
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 const createTask = async (req,res)=>{
  try {
     const {
@@ -119,9 +113,7 @@ const createTask = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 const updateTask = async (req,res)=>{
  try {
    const task = await Task.findById(req.params.id);
@@ -145,9 +137,7 @@ const updateTask = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 
 const deleteTask = async (req,res)=>{
   try {
@@ -159,9 +149,7 @@ const deleteTask = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 const updateTaskStatus = async (req,res)=>{
  try {
         const task = await Task.findById(req.params.id)
@@ -184,9 +172,7 @@ const updateTaskStatus = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 const updateTaskChecklist = async (req,res)=>{
  try {
         const {todoChecklist} =req.body;
@@ -196,13 +182,11 @@ const updateTaskChecklist = async (req,res)=>{
                 return res.status(403).json({message :"not authorized to update checklist"})
             }
        task.todoChecklist = todoChecklist;
-    //    auto-update prograss based on checklis completion
     const completedCount = task.todoChecklist.filter(
         (item)=> item.completed
     ).length;
     const totalItems = task.todoChecklist.length;
     task.progress = totalItems > 0 ? Math.round((completedCount / totalItems)*100): 0;
-    // auto-marks task as completed
     if(task.progress ===100){
         task.status = "Completed"
 
@@ -222,12 +206,10 @@ const updateTaskChecklist = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 const getDashboardData = async (req,res)=>{
  try {
-     // fetch statics 
+     
         const totalTasks = await Task.countDocuments();
         const pendingTasks = await Task.countDocuments({status:"Pending"})
         const completedTasks = await Task.countDocuments({status:"Completed"})
@@ -253,7 +235,6 @@ const getDashboardData = async (req,res)=>{
     
         },{})
         taskDistribution["all"] = totalTasks;
-        // ensure all priority
         const taskPriorities = ["Low","Medium","High"]
         const taskPriorityLevelsRaw = await Task.aggregate([{
             $group:{
@@ -291,13 +272,10 @@ const getDashboardData = async (req,res)=>{
        res.status(500).json({message:"Server error",error:error.message}) 
     }
 }
-// @desc get task by id
-// @route get/api/tasks/:id
-// @access private (admin)
+
 const getUserDashboardData = async (req,res)=>{
  try {
-    const userId = req.user._id // only fetch data for the logged-in user
-    // fetch statistics for user-specific tasks 
+    const userId = req.user._id 
     const totalTasks = await Task.countDocuments({assignedTo :userId})
     const pendingTasks = await Task.countDocuments({assignedTo:userId,status:"Pending"})
     const completedTasks = await Task.countDocuments({assignedTo:userId,status:"Completed"})
@@ -306,7 +284,6 @@ const getUserDashboardData = async (req,res)=>{
         status:{$ne:"Completed"},
         dueDate:{$lt:new Date()}
     })
-    // task distribution by status
     const taskStatuses = ["Pending","In Progress", "Completed"]
     const taskDistributionRaw = await Task.aggregate([
         {$match:{assignedTo:userId}},
@@ -319,7 +296,6 @@ const getUserDashboardData = async (req,res)=>{
         return acc;
     },{})
     taskDistribution['All'] = totalTasks;
-    // Task distribution by priority
     const taskPriorities = ["Low","Medium","High"];
     const taskPriorityLevelsRaw = await Task.aggregate([
         {$match:{assignedTo:userId}},
@@ -330,7 +306,6 @@ const getUserDashboardData = async (req,res)=>{
         taskPriorityLevelsRaw.find((item)=> item._id === priority)?.count || 0;
         return acc;
     },{})
-    // fetch recent 10 tasks for the logged in user
     const recentTasks = await Task.find({assignedTo:userId})
     .sort({createdAt :-1})
     .limit(10)

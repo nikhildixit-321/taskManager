@@ -1,9 +1,7 @@
 const Task = require("../models/Task")
 const User = require("../models/User")
 const excelJs = require("exceljs")
-// @desc expor all task as an excel file
-// @route get/api/report/export/tasks
-// @access private{admin}
+
 
 const exportTaskReport = async (req,res)=>{
     try {

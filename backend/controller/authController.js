@@ -1,31 +1,25 @@
  const User = require("../models/User");
  const jwt = require('jsonwebtoken')
  const bcrypt = require('bcryptjs')
- //gernerate jwt token
+
 
  const gernerateToken = (userId) =>{
     return jwt.sign({id:userId},process.env.JWT_SECRET,{expiresIn:"7d"})
  }
-// @desc Register a new user
-// @route POST /api/auth/register
-//  @access public
+
 const registerUser = async (req,res)=>{
    try {
     const {name,email,password,profileImageUrl,adminInviteToken} = req.body
-    // check if user already exists
     const userExists = await User.findOne({email});
     if(userExists){
         return res.status(400).json({message:"user already exists"})
     }
-    // determine user role: admin if correct token is provided, otherwise member
     let role = "member"
     if(adminInviteToken && adminInviteToken== process.env.ADMIN_INVITE_TOKEN){
         role="admin"
     }
-    // hash password
    const salt = await bcrypt.genSalt(10)
    const hashedPassword = await bcrypt.hash(password,salt)
-// create new user
 const user=await User.create({
     name,
     email,
@@ -33,7 +27,6 @@ const user=await User.create({
     profileImageUrl,
     role
 })
-// return user data with jwt
  res.status(201).json({
     _id:user._id,
     name:user.name,
@@ -46,9 +39,6 @@ const user=await User.create({
     res.status(500).json({message:"server error",error: error.message})
    }
 }
-// @desc Register a new user
-// @route POST /api/auth/login
-//  @access public
 
 const loginUser = async (req,res)=>{
      try {
@@ -57,13 +47,13 @@ const loginUser = async (req,res)=>{
      if(!user){
         return res.status(401).json({message :"Invalid email or password"})
      }
-    //  compair password 
+  
     const isMatch = await bcrypt.compare(password,user.password)
     if(!isMatch){
         return res.status(401).json({message:"Invalid email or password"})
 
     }
-    // ruturn suer dat with jwt
+ 
     res.json({
         _id :user._id,
         name:user.name,

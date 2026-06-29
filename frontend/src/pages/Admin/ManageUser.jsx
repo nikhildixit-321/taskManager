@@ -5,6 +5,7 @@ import { API_PATHS } from "../../utills/apiPath";
 import { LuSearch } from "react-icons/lu";
 import { FaUserPlus, FaEdit, FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const ManageUser = () => {
   const [users, setUsers] = useState([]);
@@ -73,10 +74,10 @@ const ManageUser = () => {
               />
             </div>
 
-            <button className="card-btn flex items-center gap-2">
+            <Link to={"/admin/users/invite"} className="card-btn flex items-center gap-2">
               <FaUserPlus />
               Add User
-            </button>
+            </Link>
           </div>
         </div>
 

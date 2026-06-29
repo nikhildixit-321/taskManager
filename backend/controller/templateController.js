@@ -1,9 +1,7 @@
 const TaskTemplate = require("../models/TaskTemplate");
 const Task = require("../models/Task");
 
-// @desc Get all templates
-// @route GET /api/templates
-// @access Private
+
 const getTemplates = async (req, res) => {
     try {
         const query = {
@@ -24,9 +22,7 @@ const getTemplates = async (req, res) => {
     }
 };
 
-// @desc Create a template
-// @route POST /api/templates
-// @access Private (Admin)
+
 const createTemplate = async (req, res) => {
     try {
         const { name, description, priority, defaultAssignees, todoChecklist, isPublic } = req.body;
@@ -51,9 +47,6 @@ const createTemplate = async (req, res) => {
     }
 };
 
-// @desc Update a template
-// @route PUT /api/templates/:id
-// @access Private (Admin)
 const updateTemplate = async (req, res) => {
     try {
         const template = await TaskTemplate.findById(req.params.id);
@@ -86,9 +79,7 @@ const updateTemplate = async (req, res) => {
     }
 };
 
-// @desc Delete a template
-// @route DELETE /api/templates/:id
-// @access Private (Admin)
+
 const deleteTemplate = async (req, res) => {
     try {
         const template = await TaskTemplate.findById(req.params.id);
@@ -108,9 +99,6 @@ const deleteTemplate = async (req, res) => {
     }
 };
 
-// @desc Create task from template
-// @route POST /api/templates/:id/create-task
-// @access Private (Admin)
 const createTaskFromTemplate = async (req, res) => {
     try {
         const template = await TaskTemplate.findById(req.params.id);
